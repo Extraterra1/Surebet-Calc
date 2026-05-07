@@ -95,17 +95,17 @@ function App() {
                 <span className="prefix">€</span>
                 <input
                   id="budget"
-                  type="number"
-                  step="0.01"
-                  min="0"
+                  type="text"
+                  inputMode="decimal"
                   placeholder="100"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
+                  aria-describedby={errors.budget ? 'budget-error' : 'budget-helper'}
                   className={errors.budget ? 'error' : ''}
                 />
               </div>
-              {errors.budget && <span className="error-message">{errors.budget}</span>}
-              <span className="helper">Amount available to stake across all outcomes</span>
+              {errors.budget && <span id="budget-error" className="error-message">{errors.budget}</span>}
+              {!errors.budget && <span id="budget-helper" className="helper">Amount available to stake across all outcomes</span>}
             </div>
 
             <div className="odds-grid">
@@ -113,45 +113,45 @@ function App() {
                 <label htmlFor="homeOdds">Home Odds</label>
                 <input
                   id="homeOdds"
-                  type="number"
-                  step="0.01"
-                  min="1.01"
+                  type="text"
+                  inputMode="decimal"
                   placeholder="2.50"
                   value={homeOdds}
                   onChange={(e) => setHomeOdds(e.target.value)}
+                  aria-describedby={errors.homeOdds ? 'homeOdds-error' : undefined}
                   className={errors.homeOdds ? 'error' : ''}
                 />
-                {errors.homeOdds && <span className="error-message">{errors.homeOdds}</span>}
+                {errors.homeOdds && <span id="homeOdds-error" className="error-message">{errors.homeOdds}</span>}
               </div>
 
               <div className="input-group">
                 <label htmlFor="drawOdds">Draw Odds</label>
                 <input
                   id="drawOdds"
-                  type="number"
-                  step="0.01"
-                  min="1.01"
+                  type="text"
+                  inputMode="decimal"
                   placeholder="3.20"
                   value={drawOdds}
                   onChange={(e) => setDrawOdds(e.target.value)}
+                  aria-describedby={errors.drawOdds ? 'drawOdds-error' : undefined}
                   className={errors.drawOdds ? 'error' : ''}
                 />
-                {errors.drawOdds && <span className="error-message">{errors.drawOdds}</span>}
+                {errors.drawOdds && <span id="drawOdds-error" className="error-message">{errors.drawOdds}</span>}
               </div>
 
               <div className="input-group">
                 <label htmlFor="awayOdds">Away Odds</label>
                 <input
                   id="awayOdds"
-                  type="number"
-                  step="0.01"
-                  min="1.01"
+                  type="text"
+                  inputMode="decimal"
                   placeholder="2.80"
                   value={awayOdds}
                   onChange={(e) => setAwayOdds(e.target.value)}
+                  aria-describedby={errors.awayOdds ? 'awayOdds-error' : undefined}
                   className={errors.awayOdds ? 'error' : ''}
                 />
-                {errors.awayOdds && <span className="error-message">{errors.awayOdds}</span>}
+                {errors.awayOdds && <span id="awayOdds-error" className="error-message">{errors.awayOdds}</span>}
               </div>
             </div>
 
@@ -162,7 +162,7 @@ function App() {
             )}
           </section>
 
-          <section className={`results-panel ${showResults ? 'has-results' : ''}`}>
+          <section className={`results-panel ${showResults ? 'has-results' : ''}`} aria-live="polite">
             <h2 className="section-title">Your results</h2>
 
             {!showResults && (

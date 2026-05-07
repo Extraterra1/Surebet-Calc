@@ -1,6 +1,7 @@
 :root {
   /* Color tokens - resolved from DESIGN.md */
   --color-surface: oklch(98% 0.01 30);
+  --color-surface-raised: oklch(100% 0 0);
   --color-ink: oklch(20% 0.01 30);
   --color-ink-muted: oklch(40% 0.008 30);
   --color-divider: oklch(85% 0.008 30);
@@ -105,7 +106,7 @@ body {
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
 /* Input styles */
-input[type="number"] {
+input[type="text"] {
   font-family: var(--font-mono);
   font-size: var(--text-lg);
   font-variant-numeric: tabular-nums;
@@ -113,38 +114,38 @@ input[type="number"] {
   padding: var(--space-3) var(--space-4);
   border: 1.5px solid var(--color-divider);
   border-radius: 6px;
-  background: white;
+  background: var(--color-surface-raised);
   color: var(--color-ink);
   transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
 }
 
-input[type="number"]:hover {
+input[type="text"]:hover {
   border-color: var(--color-ink-muted);
 }
 
-input[type="number"]:focus {
+input[type="text"]:focus {
   border-color: var(--color-action);
   box-shadow: 0 0 0 3px oklch(55% 0.15 190 / 15%);
   outline: none;
 }
 
-input[type="number"].error {
+input[type="text"].error {
   border-color: var(--color-caution);
 }
 
-input[type="number"]::placeholder {
+input[type="text"]::placeholder {
   color: var(--color-ink-muted);
   opacity: 0.6;
 }
 
 /* Remove spinner on number inputs */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type="text"] {
   -moz-appearance: textfield;
 }
 
