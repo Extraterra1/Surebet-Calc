@@ -33,7 +33,7 @@
 .logo {
   font-size: var(--text-xl);
   font-weight: 600;
-  color: var(--color-brand);
+  color: oklch(50% 0.18 185);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -114,18 +114,20 @@
 }
 
 .results-panel {
-  background: var(--color-surface);
+  background: oklch(96% 0.02 240);
   border-radius: 12px;
   padding: var(--space-6);
   box-shadow: var(--shadow-result);
   min-height: 280px;
   transition: box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out);
   overflow: hidden;
+  border: 1px solid var(--color-divider);
 }
 
 .results-panel.has-results {
-  box-shadow: oklch(15% 0.02 30 / 12%) 0 4px 16px;
-  background: var(--color-surface-raised);
+  box-shadow: oklch(20% 0.02 240 / 15%) 0 4px 16px;
+  background: oklch(95% 0.025 240);
+  border-color: var(--color-brand-muted);
 }
 
 @media (min-width: 768px) {
