@@ -1,13 +1,19 @@
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import './App.css'
 
 function App() {
+  const { t, i18n } = useTranslation()
   const [budget, setBudget] = useState('')
   const [homeOdds, setHomeOdds] = useState('')
   const [drawOdds, setDrawOdds] = useState('')
   const [awayOdds, setAwayOdds] = useState('')
 
   const [errors, setErrors] = useState({})
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'en' ? 'pt-PT' : 'en')
+  }
 
   const validateAndCalculate = useMemo(() => {
     const b = parseFloat(budget)
@@ -18,16 +24,16 @@ function App() {
     const newErrors = {}
 
     if (budget && (isNaN(b) || b <= 0)) {
-      newErrors.budget = 'Enter a valid amount'
+      newErrors.budget = t('budgetError')
     }
     if (homeOdds && (isNaN(h) || h <= 1)) {
-      newErrors.homeOdds = 'Must be greater than 1.00'
+      newErrors.homeOdds = t('homeOddsError')
     }
     if (drawOdds && (isNaN(d) || d <= 1)) {
-      newErrors.drawOdds = 'Must be greater than 1.00'
+      newErrors.drawOdds = t('drawOddsError')
     }
     if (awayOdds && (isNaN(a) || a <= 1)) {
-      newErrors.awayOdds = 'Must be greater than 1.00'
+      newErrors.awayOdds = t('awayOddsError')
     }
 
     setErrors(newErrors)
@@ -65,7 +71,7 @@ function App() {
       loss,
       lossPercent
     }
-  }, [budget, homeOdds, drawOdds, awayOdds])
+  }, [budget, homeOdds, drawOdds, awayOdds, t])
 
   const handleClear = () => {
     setBudget('')
@@ -81,16 +87,19 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1 className="logo">3WaySurebet</h1>
+        <h1 className="logo">{t('headerTitle')}</h1>
+        <button className="lang-toggle" onClick={toggleLanguage} aria-label={t('language')}>
+          {i18n.language === 'en' ? 'PT' : 'EN'}
+        </button>
       </header>
 
       <main className="main">
         <div className="calculator-grid">
           <section className="inputs-panel">
-            <h2 className="section-title">Enter your details</h2>
+            <h2 className="section-title">{t('enterDetails')}</h2>
 
             <div className="input-group">
-              <label htmlFor="budget">Total Budget</label>
+              <label htmlFor="budget">{t('totalBudget')}</label>
               <div className="input-with-prefix">
                 <span className="prefix">€</span>
                 <input
@@ -105,12 +114,12 @@ function App() {
                 />
               </div>
               {errors.budget && <span id="budget-error" className="error-message">{errors.budget}</span>}
-              {!errors.budget && <span id="budget-helper" className="helper">Amount available to stake across all outcomes</span>}
+              {!errors.budget && <span id="budget-helper" className="helper">{t('budgetHelper')}</span>}
             </div>
 
             <div className="odds-grid">
               <div className="input-group">
-                <label htmlFor="homeOdds">Home Odds</label>
+                <label htmlFor="homeOdds">{t('homeOdds')}</label>
                 <input
                   id="homeOdds"
                   type="text"
@@ -125,7 +134,7 @@ function App() {
               </div>
 
               <div className="input-group">
-                <label htmlFor="drawOdds">Draw Odds</label>
+                <label htmlFor="drawOdds">{t('drawOdds')}</label>
                 <input
                   id="drawOdds"
                   type="text"
@@ -140,7 +149,7 @@ function App() {
               </div>
 
               <div className="input-group">
-                <label htmlFor="awayOdds">Away Odds</label>
+                <label htmlFor="awayOdds">{t('awayOdds')}</label>
                 <input
                   id="awayOdds"
                   type="text"
@@ -157,26 +166,25 @@ function App() {
 
             {hasInput && (
               <button className="btn-ghost clear-btn" onClick={handleClear}>
-                Clear all
+                {t('clearAll')}
               </button>
             )}
           </section>
 
           <section className={`results-panel ${showResults ? 'has-results' : ''}`} aria-live="polite">
-            <h2 className="section-title">Your results</h2>
+            <h2 className="section-title">{t('yourResults')}</h2>
 
             {!showResults && (
               <div className="empty-state">
-                <p>Enter your budget and all three odds to see your optimal stakes.</p>
+                <p>{t('emptyState')}</p>
               </div>
             )}
 
-            
 
             {showResults && (
               <div className={`results ${showResults ? 'visible' : ''}`}>
                 <div className="worst-case">
-                  <span className="worst-case-label">Worst case return</span>
+                  <span className="worst-case-label">{t('worstCaseReturn')}</span>
                   <span className="worst-case-value tabular-nums">
                     €{validateAndCalculate.minReturn.toFixed(2)}
                   </span>
@@ -187,7 +195,7 @@ function App() {
 
                 <div className="returns-grid">
                   <div className="return-item home">
-                    <span className="return-label">Home wins</span>
+                    <span className="return-label">{t('homeWins')}</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.homeStake.toFixed(2)}</span>
                       <span className="return-arrow">→</span>
@@ -195,7 +203,7 @@ function App() {
                     </div>
                   </div>
                   <div className="return-item draw">
-                    <span className="return-label">Draw</span>
+                    <span className="return-label">{t('draw')}</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.drawStake.toFixed(2)}</span>
                       <span className="return-arrow">→</span>
@@ -203,7 +211,7 @@ function App() {
                     </div>
                   </div>
                   <div className="return-item away">
-                    <span className="return-label">Away wins</span>
+                    <span className="return-label">{t('awayWins')}</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.awayStake.toFixed(2)}</span>
                       <span className="return-arrow">→</span>
@@ -213,7 +221,7 @@ function App() {
                 </div>
 
                 <div className="total-staked">
-                  <span>Total staked</span>
+                  <span>{t('totalStaked')}</span>
                   <span className="tabular-nums">€{budget}</span>
                 </div>
               </div>
