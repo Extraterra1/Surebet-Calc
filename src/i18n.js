@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
-      headerTitle: '3WaySurebet',
+      headerTitle: 'Aposta Tripla',
       enterDetails: 'Enter your details',
       totalBudget: 'Total Budget',
       budgetHelper: 'Amount available to stake across all outcomes',
@@ -28,7 +28,7 @@ const resources = {
   },
   'pt-PT': {
     translation: {
-      headerTitle: '3WaySurebet',
+      headerTitle: 'Aposta Tripla',
       enterDetails: 'Insira os dados',
       totalBudget: 'Orçamento Total',
       budgetHelper: 'Montante disponível para distribuir pelas apostas',
