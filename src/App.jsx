@@ -186,7 +186,7 @@ function App() {
                 </div>
 
                 <div className="returns-grid">
-                  <div className="return-item">
+                  <div className="return-item home">
                     <span className="return-label">Home wins</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.homeStake.toFixed(2)}</span>
@@ -194,7 +194,7 @@ function App() {
                       <span className="return-value tabular-nums">€{validateAndCalculate.homeReturn.toFixed(2)}</span>
                     </div>
                   </div>
-                  <div className="return-item">
+                  <div className="return-item draw">
                     <span className="return-label">Draw</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.drawStake.toFixed(2)}</span>
@@ -202,7 +202,7 @@ function App() {
                       <span className="return-value tabular-nums">€{validateAndCalculate.drawReturn.toFixed(2)}</span>
                     </div>
                   </div>
-                  <div className="return-item">
+                  <div className="return-item away">
                     <span className="return-label">Away wins</span>
                     <div className="return-details">
                       <span className="return-stake tabular-nums">€{validateAndCalculate.awayStake.toFixed(2)}</span>
