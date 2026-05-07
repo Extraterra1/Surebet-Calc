@@ -1,0 +1,237 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.logo {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-6);
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calculator-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .calculator-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+.inputs-panel,
+.results-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--space-5);
+}
+
+.input-group {
+  margin-bottom: var(--space-5);
+}
+
+.input-with-prefix {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.prefix {
+  font-size: var(--text-lg);
+  color: var(--color-ink-muted);
+  font-weight: var(--weight-medium);
+}
+
+.odds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .odds-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.clear-btn {
+  align-self: flex-start;
+  margin-top: var(--space-2);
+}
+
+.results-panel {
+  background: white;
+  border-radius: 12px;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-result);
+  min-height: 280px;
+}
+
+@media (min-width: 768px) {
+  .results-panel {
+    position: sticky;
+    top: var(--space-6);
+  }
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+.empty-state p {
+  color: var(--color-ink-muted);
+  margin: 0;
+  max-width: 220px;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+.error-state p {
+  color: var(--color-caution);
+  margin: 0 0 var(--space-2);
+}
+
+.results {
+  animation: fadeIn 0.2s var(--ease-out);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guaranteed-return {
+  text-align: center;
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-divider);
+  margin-bottom: var(--space-5);
+}
+
+.guaranteed-label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-1);
+}
+
+.guaranteed-value {
+  display: block;
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.profit-badge {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-positive);
+  background: oklch(45% 0.12 150 / 10%);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 100px;
+}
+
+.stakes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.stake-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border-radius: 8px;
+}
+
+.stake-label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.stake-value {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+}
+
+.total-staked {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.total-staked span:last-child {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: var(--space-4);
+  }
+
+  .results-panel {
+    padding: var(--space-5);
+  }
+
+  .guaranteed-value {
+    font-size: var(--text-2xl);
+  }
+}

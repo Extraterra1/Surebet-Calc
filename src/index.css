@@ -1,0 +1,207 @@
+:root {
+  /* Color tokens - resolved from DESIGN.md */
+  --color-surface: oklch(98% 0.01 30);
+  --color-ink: oklch(20% 0.01 30);
+  --color-ink-muted: oklch(40% 0.008 30);
+  --color-divider: oklch(85% 0.008 30);
+  --color-action: oklch(55% 0.15 190);
+  --color-action-hover: oklch(48% 0.18 190);
+  --color-positive: oklch(45% 0.12 150);
+  --color-caution: oklch(55% 0.12 45);
+
+  /* Spacing - 4pt base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography - one family, scale contrast */
+  --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, Consolas, monospace;
+
+  /* Type scale - 1.25 ratio (major third) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  /* Elevation - flat by default, one shadow on results */
+  --shadow-result: oklch(15% 0.02 30 / 8%) 0 2px 8px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Focus ring - keyboard accessible */
+:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Typography utilities */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+
+.font-medium { font-weight: var(--weight-medium); }
+.font-regular { font-weight: var(--weight-regular); }
+
+.text-ink-muted { color: var(--color-ink-muted); }
+.text-positive { color: var(--color-positive); }
+.text-caution { color: var(--color-caution); }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Input styles */
+input[type="number"] {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--color-divider);
+  border-radius: 6px;
+  background: white;
+  color: var(--color-ink);
+  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+
+input[type="number"]:hover {
+  border-color: var(--color-ink-muted);
+}
+
+input[type="number"]:focus {
+  border-color: var(--color-action);
+  box-shadow: 0 0 0 3px oklch(55% 0.15 190 / 15%);
+  outline: none;
+}
+
+input[type="number"].error {
+  border-color: var(--color-caution);
+}
+
+input[type="number"]::placeholder {
+  color: var(--color-ink-muted);
+  opacity: 0.6;
+}
+
+/* Remove spinner on number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Button styles */
+button {
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-5);
+  transition: background-color 0.15s var(--ease-out), transform 0.1s var(--ease-out);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--color-action);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--color-action-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink-muted);
+}
+
+.btn-ghost:hover {
+  background: var(--color-divider);
+  color: var(--color-ink);
+}
+
+/* Label styles */
+label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+/* Helper text */
+.helper {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: var(--space-1);
+}
+
+/* Error message */
+.error-message {
+  font-size: var(--text-xs);
+  color: var(--color-caution);
+  margin-top: var(--space-1);
+}
