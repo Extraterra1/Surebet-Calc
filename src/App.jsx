@@ -174,7 +174,7 @@ function App() {
             
 
             {showResults && (
-              <div className="results">
+              <div className={`results ${showResults ? 'visible' : ''}`}>
                 <div className="worst-case">
                   <span className="worst-case-label">Worst case return</span>
                   <span className="worst-case-value tabular-nums">
