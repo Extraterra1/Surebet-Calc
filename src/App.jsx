@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import './App.css'
 
 function App() {
@@ -40,31 +40,30 @@ function App() {
       return null
     }
 
-    const inverseSum = (1/h) + (1/d) + (1/a)
+    const homeStake = (b / ((1/h) + (1/d) + (1/a))) * (1/h)
+    const drawStake = (b / ((1/h) + (1/d) + (1/a))) * (1/d)
+    const awayStake = (b / ((1/h) + (1/d) + (1/a))) * (1/a)
 
-    if (inverseSum >= 1) {
-      return {
-        error: 'No profitable surebet exists with these odds',
-        isArbitrage: true
-      }
-    }
+    const homeReturn = homeStake * h
+    const drawReturn = drawStake * d
+    const awayReturn = awayStake * a
 
-    const guaranteedReturn = b / inverseSum
-    const homeStake = guaranteedReturn / h
-    const drawStake = guaranteedReturn / d
-    const awayStake = guaranteedReturn / a
-
-    const profit = guaranteedReturn - b
-    const profitPercent = (profit / b) * 100
+    const minReturn = Math.min(homeReturn, drawReturn, awayReturn)
+    const maxReturn = Math.max(homeReturn, drawReturn, awayReturn)
+    const loss = b - minReturn
+    const lossPercent = (loss / b) * 100
 
     return {
       homeStake,
       drawStake,
       awayStake,
-      guaranteedReturn,
-      profit,
-      profitPercent,
-      totalStake: homeStake + drawStake + awayStake
+      homeReturn,
+      drawReturn,
+      awayReturn,
+      minReturn,
+      maxReturn,
+      loss,
+      lossPercent
     }
   }, [budget, homeOdds, drawOdds, awayOdds])
 
@@ -77,7 +76,7 @@ function App() {
   }
 
   const hasInput = budget || homeOdds || drawOdds || awayOdds
-  const showResults = validateAndCalculate && !validateAndCalculate.error
+  const showResults = validateAndCalculate !== null
 
   return (
     <div className="app">
@@ -166,55 +165,56 @@ function App() {
           <section className={`results-panel ${showResults ? 'has-results' : ''}`}>
             <h2 className="section-title">Your results</h2>
 
-            {!showResults && !validateAndCalculate?.error && (
+            {!showResults && (
               <div className="empty-state">
                 <p>Enter your budget and all three odds to see your optimal stakes.</p>
               </div>
             )}
 
-            {validateAndCalculate?.error && (
-              <div className="error-state">
-                <p>{validateAndCalculate.error}</p>
-                <span className="helper">Odds must imply less than 100% probability for a surebet.</span>
-              </div>
-            )}
+            
 
             {showResults && (
               <div className="results">
-                <div className="guaranteed-return">
-                  <span className="guaranteed-label">Guaranteed return</span>
-                  <span className="guaranteed-value tabular-nums">
-                    €{validateAndCalculate.guaranteedReturn.toFixed(2)}
+                <div className="worst-case">
+                  <span className="worst-case-label">Worst case return</span>
+                  <span className="worst-case-value tabular-nums">
+                    €{validateAndCalculate.minReturn.toFixed(2)}
                   </span>
-                  <span className="profit-badge">
-                    +€{validateAndCalculate.profit.toFixed(2)} ({validateAndCalculate.profitPercent.toFixed(1)}%)
+                  <span className="loss-badge">
+                    -€{validateAndCalculate.loss.toFixed(2)} ({validateAndCalculate.lossPercent.toFixed(1)}%)
                   </span>
                 </div>
 
-                <div className="stakes-grid">
-                  <div className="stake-item">
-                    <span className="stake-label">Home stake</span>
-                    <span className="stake-value tabular-nums">
-                      €{validateAndCalculate.homeStake.toFixed(2)}
-                    </span>
+                <div className="returns-grid">
+                  <div className="return-item">
+                    <span className="return-label">Home wins</span>
+                    <div className="return-details">
+                      <span className="return-stake tabular-nums">€{validateAndCalculate.homeStake.toFixed(2)}</span>
+                      <span className="return-arrow">→</span>
+                      <span className="return-value tabular-nums">€{validateAndCalculate.homeReturn.toFixed(2)}</span>
+                    </div>
                   </div>
-                  <div className="stake-item">
-                    <span className="stake-label">Draw stake</span>
-                    <span className="stake-value tabular-nums">
-                      €{validateAndCalculate.drawStake.toFixed(2)}
-                    </span>
+                  <div className="return-item">
+                    <span className="return-label">Draw</span>
+                    <div className="return-details">
+                      <span className="return-stake tabular-nums">€{validateAndCalculate.drawStake.toFixed(2)}</span>
+                      <span className="return-arrow">→</span>
+                      <span className="return-value tabular-nums">€{validateAndCalculate.drawReturn.toFixed(2)}</span>
+                    </div>
                   </div>
-                  <div className="stake-item">
-                    <span className="stake-label">Away stake</span>
-                    <span className="stake-value tabular-nums">
-                      €{validateAndCalculate.awayStake.toFixed(2)}
-                    </span>
+                  <div className="return-item">
+                    <span className="return-label">Away wins</span>
+                    <div className="return-details">
+                      <span className="return-stake tabular-nums">€{validateAndCalculate.awayStake.toFixed(2)}</span>
+                      <span className="return-arrow">→</span>
+                      <span className="return-value tabular-nums">€{validateAndCalculate.awayReturn.toFixed(2)}</span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="total-staked">
                   <span>Total staked</span>
-                  <span className="tabular-nums">€{validateAndCalculate.totalStake.toFixed(2)}</span>
+                  <span className="tabular-nums">€{budget}</span>
                 </div>
               </div>
             )}

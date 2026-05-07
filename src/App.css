@@ -145,21 +145,21 @@
   }
 }
 
-.guaranteed-return {
+.worst-case {
   text-align: center;
   padding-bottom: var(--space-5);
   border-bottom: 1px solid var(--color-divider);
   margin-bottom: var(--space-5);
 }
 
-.guaranteed-label {
+.worst-case-label {
   display: block;
   font-size: var(--text-sm);
   color: var(--color-ink-muted);
   margin-bottom: var(--space-1);
 }
 
-.guaranteed-value {
+.worst-case-value {
   display: block;
   font-size: var(--text-3xl);
   font-weight: var(--weight-medium);
@@ -168,25 +168,25 @@
   letter-spacing: -0.02em;
 }
 
-.profit-badge {
+.loss-badge {
   display: inline-block;
   margin-top: var(--space-2);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
-  color: var(--color-positive);
-  background: oklch(45% 0.12 150 / 10%);
+  color: var(--color-caution);
+  background: oklch(70% 0.12 45 / 10%);
   padding: var(--space-1) var(--space-3);
   border-radius: 100px;
 }
 
-.stakes-grid {
+.returns-grid {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
 }
 
-.stake-item {
+.return-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -195,12 +195,29 @@
   border-radius: 8px;
 }
 
-.stake-label {
+.return-label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  min-width: 80px;
+}
+
+.return-details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.return-stake {
   font-size: var(--text-sm);
   color: var(--color-ink-muted);
 }
 
-.stake-value {
+.return-arrow {
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+}
+
+.return-value {
   font-size: var(--text-lg);
   font-weight: var(--weight-medium);
   color: var(--color-ink);
