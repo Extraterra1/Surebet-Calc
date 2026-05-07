@@ -138,17 +138,6 @@ input[type="text"]::placeholder {
   opacity: 0.6;
 }
 
-/* Remove spinner on number inputs */
-input[type="text"]::-webkit-inner-spin-button,
-input[type="text"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="text"] {
-  -moz-appearance: textfield;
-}
-
 /* Button styles */
 button {
   font-family: var(--font-family);
@@ -163,15 +152,6 @@ button {
 
 button:active {
   transform: scale(0.98);
-}
-
-.btn-primary {
-  background: var(--color-action);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: var(--color-action-hover);
 }
 
 .btn-ghost {
